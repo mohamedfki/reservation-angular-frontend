@@ -1,0 +1,19 @@
+<div class="app-container">
+  <!-- عرض LeftSidebarAdmin فقط إذا كان المستخدم في قسم الإدارة -->
+  <app-left-sidebar-admin *ngIf="isAdminPage()" 
+    [isLeftSidebarCollapsed]="isLeftSidebarCollapsed()" 
+    (changeIsLeftSidebarCollapsed)="changeIsLeftSidebarCollapsed($event)">
+  </app-left-sidebar-admin>
+
+  <!-- عرض LeftSidebarComponent في باقي الأقسام -->
+  <app-left-sidebar *ngIf="!isAdminPage()" 
+    [isLeftSidebarCollapsed]="isLeftSidebarCollapsed()" 
+    (changeIsLeftSidebarCollapsed)="changeIsLeftSidebarCollapsed($event)">
+  </app-left-sidebar>
+
+  <!-- محتوى الصفحة الذي يختلف بناءً على المسار -->
+  <router-outlet></router-outlet>
+</div>
+
+
+
