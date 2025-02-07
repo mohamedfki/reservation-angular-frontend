@@ -5,9 +5,9 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-left-sidebar-admin',
   standalone: true,
-  imports: [RouterModule,CommonModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './left-sidebar-admin.component.html',
-  styleUrl: './left-sidebar-admin.component.css'
+  styleUrls: ['./left-sidebar-admin.component.css'],
 })
 export class LeftSidebarAdminComponent {
   @Input() isLeftSidebarCollapsed!: boolean;
@@ -16,15 +16,17 @@ export class LeftSidebarAdminComponent {
   items = [
     { routeLink: 'products', icon: 'fal fa-box-open', label: 'Products' },
     { routeLink: 'reservations', icon: 'fal fa-calendar-alt', label: 'Reservations' },
+    { routeLink: 'departments', icon: 'fal fa-building', label: 'Departments' },
     { routeLink: 'logout', icon: 'fal fa-sign-out', label: 'Logout' },
   ];
 
   toggleCollapse(): void {
-    this.changeIsLeftSidebarCollapsed.emit(!this.isLeftSidebarCollapsed);
+    this.isLeftSidebarCollapsed = !this.isLeftSidebarCollapsed;
+    this.changeIsLeftSidebarCollapsed.emit(this.isLeftSidebarCollapsed);
   }
 
   closeSidenav(): void {
-    this.changeIsLeftSidebarCollapsed.emit(true);
+    this.isLeftSidebarCollapsed = true;
+    this.changeIsLeftSidebarCollapsed.emit(this.isLeftSidebarCollapsed);
   }
-
 }

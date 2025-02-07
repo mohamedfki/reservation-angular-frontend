@@ -6,6 +6,7 @@ import { MainComponent } from './main/main.component';
 import { AuthComponent } from './auth/auth.component';
 import { AdminModule } from './admin/admin/admin.module';
 import { CommonModule } from '@angular/common';
+import { authGuard } from './auth.guard';
 
 @Component({
   selector: 'app-root',

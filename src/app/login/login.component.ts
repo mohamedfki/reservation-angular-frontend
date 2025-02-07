@@ -44,10 +44,34 @@ export class LoginComponent implements OnInit {
         this.isSubmitting = false;
         // Handle success response
         this.successMessage = 'Login successful!';
-        localStorage.setItem('token', response.data.token); // Store the JWT token
+
+        const responseData = response.data.token;
+
+        // Extract the ID from the response string
+        const idMatch = responseData.match(/ID:\s*(\d+)/); // Regex to extract the ID value
+        const userId = idMatch ? idMatch[1] : null;
+
+        // Store token and user ID in localStorage
+        localStorage.setItem('token', responseData); // Store the full token string
+        if (userId) {
+          localStorage.setItem('userid', userId); // Store the extracted ID
+        } else {
+          console.error('User ID not found in response');
+        }
+
         console.log('Login Success:', response.data);
-        // Redirect to dashboard or another page after successful login
-        this.router.navigate(['/dashboard']);
+
+        // Hardcoded check for admin credentials
+        const adminEmail = 'admin@isetsfax.tn';
+        const adminPassword = 'isetsfax';
+
+        if (this.email === adminEmail && this.password === adminPassword) {
+          // Redirect admin to the admin dashboard
+          this.router.navigate(['/admin']);
+        } else {
+          // Redirect regular users to the user dashboard
+          this.router.navigate(['/dashboard']);
+        }
       })
       .catch((error) => {
         this.isSubmitting = false;

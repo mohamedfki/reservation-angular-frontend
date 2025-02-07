@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { LeftSidebarAdminComponent } from '../left-sidebar-admin/left-sidebar-admin.component';
 import { CommonModule } from '@angular/common';
 
@@ -12,15 +12,18 @@ import { CommonModule } from '@angular/common';
 })
 export class MainComponent implements OnInit {
   isLeftSidebarCollapsed = false;
-  showAdminSidebar = true;  
+  showAdminSidebar = true;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-   
+    if (this.router.url === '/admin') {
+      this.router.navigate(['admin/reservations']);
+    }
   }
 
   toggleSidebar(collapsed: boolean): void {
     this.isLeftSidebarCollapsed = collapsed;
   }
 }
+

@@ -3,14 +3,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductsComponent2 } from './products/products.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PagesComponent } from './pages/pages.component';
-import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { LeftSidebarAdminComponent } from './admin/left-sidebar-admin/left-sidebar-admin.component';
 import { MainComponent } from './admin/main/main.component';
 import { ProductsComponent } from './admin/products/products.component';
-import { ReservationComponent } from './admin/reservation/reservation.component';
+
 import { LogoutComponent } from './admin/logout/logout.component';
+import { authGuard } from './auth.guard';
+import { DepartmentsComponent } from './admin/departments/departments.component';
+import { ReservationsComponent } from './admin/reservation/reservation.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -24,10 +25,12 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: MainComponent, 
+    canActivate: [authGuard],
     children: [
       { path: '', redirectTo: 'reservation', pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
-      { path: 'reservation', component: ReservationComponent },
+      { path: 'reservations', component:ReservationsComponent },
+      { path: 'departments', component: DepartmentsComponent },
       { path: 'logout', component: LogoutComponent },
     ],
   },
